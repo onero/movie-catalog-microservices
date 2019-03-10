@@ -22,3 +22,5 @@ mvn spring-boot:run
 ```
 
 The microservices will register automatically with Eureka, so the catalog will automatically be able to consume the other microservices!
+
+The Eureka Dashboard is set to: http://localhost:8761/
