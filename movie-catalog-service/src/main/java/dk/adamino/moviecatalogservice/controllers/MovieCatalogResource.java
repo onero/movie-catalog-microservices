@@ -18,8 +18,8 @@ import java.util.stream.Collectors;
 @RequestMapping("/catalog")
 public class MovieCatalogResource {
 
-    private static final String MOVIES_PATH = "http://localhost:1338/movies/";
-    private static final String RATINGS_PATH = "http://localhost:1339/ratings/";
+    private static final String MOVIE_INFO_SERVICE_PATH = "http://movie-info-service/movies/";
+    private static final String MOVIE_RATING_SERVICE_PATH = "http://movie-rating-service/ratings/";
 
     private final RestTemplate restTemplate;
     private final WebClient.Builder webClientBuilder;
@@ -32,16 +32,16 @@ public class MovieCatalogResource {
 
     @GetMapping("/{userId}")
     public List<CatalogItem> getCatalog(@PathVariable("userId") String userId) {
-        UserRating userRating = restTemplate.getForObject(RATINGS_PATH + "/users/" + userId, UserRating.class);
+        UserRating userRating = restTemplate.getForObject(MOVIE_RATING_SERVICE_PATH + "/users/" + userId, UserRating.class);
 
         return userRating.getRatings().stream()
                 .map(rating -> {
-                    Movie movie = restTemplate.getForObject(MOVIES_PATH + rating.getMovieId(), Movie.class);
+                    Movie movie = restTemplate.getForObject(MOVIE_INFO_SERVICE_PATH + rating.getMovieId(), Movie.class);
 
                     // In the future we're going to do it like this, when RestTemplate gets deprecated... Sigh
                     /*Movie movie = webClientBuilder.build()
                             .get()
-                            .uri(MOVIES_PATH + rating.getMovieId())
+                            .uri(MOVIE_INFO_SERVICE_PATH + rating.getMovieId())
                             .retrieve()
                             .bodyToMono(Movie.class)
                             .block();*/
