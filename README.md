@@ -6,7 +6,7 @@
 
 For building and running the application you need:
 
-- [JDK 1.11](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html)
+- [JDK 11](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html)
 - [Maven 4](https://maven.apache.org)
 
 ## Running the application locally
