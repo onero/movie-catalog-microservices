@@ -1,0 +1,37 @@
+version: '3.5'
+services:
+  discovery-server:
+    image: discovery-server:1.0
+    ports:
+     - "1300:1300"
+    networks:
+      - network-eureka
+  movie-info-service:
+    image: movie-info-service:1.0
+    ports:
+     - "1338:1338"
+    depends_on:
+     - discovery-server
+    networks:
+      - network-eureka
+  movie-rating-service:
+    image: movie-rating-service:1.0
+    ports:
+     - "1339:1339"
+    depends_on:
+     - discovery-server
+    networks:
+      - network-eureka
+  movie-catalog-service:
+    image: movie-catalog-service:1.0
+    depends_on:
+     - discovery-server
+     - movie-rating-service
+     - movie-info-service
+    ports:
+     - "1337:1337"
+    networks:
+      - network-eureka
+networks:
+  network-eureka:
+    name: network-eureka
